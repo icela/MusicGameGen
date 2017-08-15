@@ -54,7 +54,7 @@ class MusicGame : Game(3) {
 				addTimeListener(*it.map {
 					FTimeListener("${it.first}".toInt(), 2, {
 						addObject(2, ImageObject(IMAGES["${it.second}"[0]]!!, x = 236.0, y = -20.0).apply {
-							addAnim(SimpleMove(0, 300))
+							addAnim(SimpleMove("ASDFJKL;".indexOf("${it.second}"[0]) * 70, 300))
 						})
 					})
 				}.toTypedArray())
