@@ -21,11 +21,9 @@ val KEYS = mapOf(
 		KeyEvent.VK_J to "J",
 		KeyEvent.VK_K to "K",
 		KeyEvent.VK_L to "L",
-		KeyEvent.VK_SEMICOLON to ";"
-)
+		KeyEvent.VK_SEMICOLON to ";")
 
-val IMAGES = mapOf(*"ASDFJKL;".map { it to FileImageResource("res/img/VK_$it.png") }
-		.toTypedArray())
+val IMAGES = mapOf(*"ASDFJKL;".map { it to FileImageResource("res/img/VK_$it.png") }.toTypedArray())
 
 class MusicGame : Game(3) {
 	override fun onInit() {
@@ -34,9 +32,7 @@ class MusicGame : Game(3) {
 		"".string2File("save.db")
 		when (FDialog(this).confirm("Practise mode?", "Confirm", FDialog.YES_NO_OPTION)) {
 			FDialog.NO_OPTION -> Preference("save.db").let { database ->
-				addKeyListener(pressed = {
-					if (it.keyCode in KEYS) database.insert("${Clock.current}", "${KEYS[it.keyCode]}")
-				})
+				addKeyListener(pressed = { if (it.keyCode in KEYS) database.insert("${Clock.current}", "${KEYS[it.keyCode]}") })
 			}
 			FDialog.YES_OPTION -> Preference("data.db").list().let {
 				addTimeListener(*it.map {
@@ -52,14 +48,6 @@ class MusicGame : Game(3) {
 			play("res/bad-apple.mp3")
 		})
 		super.onInit()
-	}
-
-	override fun onRefresh() {
-		super.onRefresh()
-	}
-
-	override fun onLastInit() {
-		super.onLastInit()
 	}
 
 	override fun onExit() {
