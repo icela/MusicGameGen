@@ -8,4 +8,13 @@ CodeShip|[![Codeship Status for ice1000/MusicGameGen](https://app.codeship.com/p
 
 This is a music game generator.
 
+# How to generate
 
+You play first, and you save the data, and the player plays.
+
+# About this generator
+
+This generator is based on my [FriceEngine](https://github.com/icela/FriceEngine), an easy, light game engine.
+It doesn't care much about performance, because it's written in pure Kotlin and draw scenes via invoking the Swing/AWT APIs.
+
+The source code is extremely ~~unreadable~~ short.
