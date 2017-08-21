@@ -15,7 +15,7 @@ class MusicGame : Game(3) {
 		title = "ice1000's music game"
 		autoGC = true
 		addObject(0, ImageObject(ImageResource.fromPath("res/img/BG.jpg")))
-		addTimeListener(FTimeListener(3000, 1) { play("res/bad-apple.mp3") })
+		addTimeListener(FTimeListener(3000, 1) { play("res/song.mp3") })
 		super.onInit()
 	}
 
