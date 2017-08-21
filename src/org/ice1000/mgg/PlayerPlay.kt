@@ -1,6 +1,7 @@
 package org.ice1000.mgg
 
 import org.frice.game.anim.move.SimpleMove
+import org.frice.game.obj.button.SimpleText
 import org.frice.game.obj.sub.ImageObject
 import org.frice.game.obj.sub.ShapeObject
 import org.frice.game.resource.graphics.ColorResource
@@ -13,7 +14,9 @@ fun MusicGame.player() = Preference("data.db").list().let {
 	val res = ColorResource.BLUE
 	val resultImages = listOf("Perfect", "Good", "Bad", "Miss").map { ImageResource.fromPath("res/img/$it.png") }
 	val wall = ShapeObject(ColorResource.COLORLESS, FRectangle(700, 10), -10.0, 590.0)
-	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 450.0), ShapeObject(res, FRectangle(700, 10), -10.0, 540.0), wall)
+	var scoreC = 0
+	val score = SimpleText(ColorResource.BLACK, "score", 20.0, 20.0)
+	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 450.0), ShapeObject(res, FRectangle(700, 10), -10.0, 540.0), wall, score)
 	addTimeListener(*it.map {
 		FTimeListener("${it.first}".toInt() + 2600, 1, {
 			addObject(2, ImageObject(IMAGES["${it.second}"[0]]!!, x = pos(it.second) * 70.0, y = -20.0).apply {
@@ -26,19 +29,25 @@ fun MusicGame.player() = Preference("data.db").list().let {
 		if (it.keyCode in KEYS) {
 			println("${KEYS[it.keyCode]}, ${layers[2].objects.size}")
 			layers[2].objects.forEach { obj ->
-				if ((obj as ImageObject).res !in resultImages && IMAGES[KEYS[it.keyCode]!![0]] == obj.res) when (obj.y) {
-					in 400..500 -> {
-						obj.res = resultImages[0]
-						println("${obj.y}")
+				var printRes = true
+				if ((obj as ImageObject).res !in resultImages && IMAGES[KEYS[it.keyCode]!![0]] == obj.res) {
+					when (obj.y) {
+						in 400..500 -> {
+							obj.res = resultImages[0]
+							scoreC += 100
+						}
+						in 380..530 -> {
+							obj.res = resultImages[1]
+							scoreC += 50
+						}
+						in 360..560 -> {
+							obj.res = resultImages[2]
+							scoreC += 10
+						}
+						else -> printRes = false
 					}
-					in 380..530 -> {
-						if (IMAGES[KEYS[it.keyCode]!![0]] == obj.res) obj.res = resultImages[1]
-						println("${obj.y}")
-					}
-					in 360..560 -> {
-						obj.res = resultImages[2]
-						println("${obj.y}")
-					}
+					if (printRes) println("${obj.y}")
+					score.text = "score: $scoreC"
 				}
 			}
 		}
