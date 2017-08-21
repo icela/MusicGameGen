@@ -34,15 +34,15 @@ fun MusicGame.player() = Preference("data.db").list().let {
 					when (obj.y) {
 						in 400..500 -> {
 							obj.res = resultImages[0]
-							scoreC += 100
+							scoreC += 10
 						}
 						in 380..530 -> {
 							obj.res = resultImages[1]
-							scoreC += 50
+							scoreC += 5
 						}
 						in 360..560 -> {
 							obj.res = resultImages[2]
-							scoreC += 10
+							scoreC++
 						}
 						else -> printRes = false
 					}
