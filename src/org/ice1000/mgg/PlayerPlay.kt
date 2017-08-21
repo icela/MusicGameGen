@@ -16,7 +16,7 @@ fun MusicGame.player() = Preference("data.db").list().let {
 	val wall = ShapeObject(ColorResource.COLORLESS, FRectangle(700, 10), -10.0, 590.0)
 	var scoreC = 0
 	val score = SimpleText(ColorResource.BLACK, "score", 20.0, 20.0)
-	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 450.0), ShapeObject(res, FRectangle(700, 10), -10.0, 540.0), wall, score)
+	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 480.0), ShapeObject(res, FRectangle(700, 10), -10.0, 540.0), wall, score)
 	addTimeListener(*it.map {
 		FTimeListener("${it.first}".toInt() + 2600, 1, {
 			addObject(2, ImageObject(IMAGES["${it.second}"[0]]!!, x = pos(it.second) * 70.0, y = -20.0).apply {
