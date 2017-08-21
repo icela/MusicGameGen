@@ -15,13 +15,22 @@ fun MusicGame.player() = Preference("data.db").list().let {
 	val resultImages = listOf("Perfect", "Good", "Bad", "Miss").map { ImageResource.fromPath("res/img/$it.png") }
 	val wall = ShapeObject(ColorResource.COLORLESS, FRectangle(700, 10), -10.0, 590.0)
 	var scoreC = 0
-	val score = SimpleText(ColorResource.BLACK, "score", 20.0, 20.0)
-	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 480.0), ShapeObject(res, FRectangle(700, 10), -10.0, 540.0), wall, score)
+	var comboC = 0
+	val show = SimpleText(ColorResource.BLACK, "score", 20.0, 20.0)
+	val updateShow = { show.text = "score: $scoreC, combo: $comboC" }
+	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 480.0),
+			ShapeObject(res, FRectangle(700, 10), -10.0, 540.0), wall, show)
 	addTimeListener(*it.map {
 		FTimeListener("${it.first}".toInt() + 2600, 1, {
 			addObject(2, ImageObject(IMAGES["${it.second}"[0]]!!, x = pos(it.second) * 70.0, y = -20.0).apply {
 				addAnim(SimpleMove(0, 500))
-				addCollider(wall, { if (this.res !in resultImages) this.res = resultImages.last() })
+				addCollider(wall, {
+					if (this.res !in resultImages) {
+						comboC = 0
+						updateShow()
+						this.res = resultImages.last()
+					}
+				})
 			})
 		})
 	}.toTypedArray())
@@ -29,7 +38,7 @@ fun MusicGame.player() = Preference("data.db").list().let {
 		if (it.keyCode in KEYS) {
 			println("${KEYS[it.keyCode]}, ${layers[2].objects.size}")
 			layers[2].objects.forEach { obj ->
-				var printRes = true
+				var hit = true
 				if ((obj as ImageObject).res !in resultImages && IMAGES[KEYS[it.keyCode]!![0]] == obj.res) {
 					when (obj.y) {
 						in 400..500 -> {
@@ -44,10 +53,13 @@ fun MusicGame.player() = Preference("data.db").list().let {
 							obj.res = resultImages[2]
 							scoreC++
 						}
-						else -> printRes = false
+						else -> hit = false
 					}
-					if (printRes) println("${obj.y}")
-					score.text = "score: $scoreC"
+					if (hit) {
+						println("${obj.y}")
+						comboC++
+					}
+					updateShow()
 				}
 			}
 		}
