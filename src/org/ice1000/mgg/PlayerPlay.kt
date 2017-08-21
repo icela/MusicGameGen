@@ -16,10 +16,9 @@ fun MusicGame.player() = Preference("data.db").list().let {
 	val wall = ShapeObject(ColorResource.COLORLESS, FRectangle(700, 10), -10.0, 590.0)
 	addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 450.0), ShapeObject(res, FRectangle(700, 10), -10.0, 520.0), wall)
 	addTimeListener(*it.map {
-		FTimeListener("${it.first}".toInt() + 2000, 1, {
+		FTimeListener("${it.first}".toInt() + 2200, 1, {
 			addObject(2, ImageObject(IMAGES["${it.second}"[0]]!!, x = pos(it.second) * 70.0, y = -20.0).apply {
-				addAnim(AccelerateMove(0.0, 2.0))
-				addAnim(SimpleMove(0, 600))
+				addAnim(SimpleMove(0, 800))
 				addCollider(wall, { if (this.res !in resultImages) this.res = resultImages.last() })
 			})
 		})
@@ -27,11 +26,20 @@ fun MusicGame.player() = Preference("data.db").list().let {
 	addKeyListener(pressed = {
 		if (it.keyCode in KEYS) {
 			println("${KEYS[it.keyCode]}, ${layers[2].objects.size}")
-			layers[2].objects.forEach {
-				if ((it as ImageObject).res !in resultImages) when (it.y) {
-					in 430..500 -> it.res = resultImages[0].apply { println("${it.y}") }
-					in 410..530 -> it.res = resultImages[1].apply { println("${it.y}") }
-					in 380..560 -> it.res = resultImages[2].apply { println("${it.y}") }
+			layers[2].objects.forEach { obj ->
+				if ((obj as ImageObject).res !in resultImages && IMAGES[KEYS[it.keyCode]!![0]] == obj.res) when (obj.y) {
+					in 400..510 -> {
+						obj.res = resultImages[0]
+						println("${obj.y}")
+					}
+					in 380..530 -> {
+						if (IMAGES[KEYS[it.keyCode]!![0]] == obj.res) obj.res = resultImages[1]
+						println("${obj.y}")
+					}
+					in 360..560 -> {
+						obj.res = resultImages[2]
+						println("${obj.y}")
+					}
 				}
 			}
 		}
