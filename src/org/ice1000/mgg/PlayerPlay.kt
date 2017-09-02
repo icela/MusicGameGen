@@ -38,24 +38,17 @@ fun MusicGame.player() = Preference("data.db").list().let {
 		if (it.keyCode in KEYS) {
 			println("${KEYS[it.keyCode]}, ${layers[2].objects.size}")
 			layers[2].objects.forEach { obj ->
-				var hit = true
 				if ((obj as ImageObject).res !in resultImages && IMAGES[KEYS[it.keyCode]!![0]] == obj.res) {
-					when (obj.y) {
-						in 400..500 -> {
-							obj.res = resultImages[0]
-							scoreC += 10
+					try {
+						val (r, c) = when (obj.y) {
+							in 400..500 -> Pair(resultImages[0], 10)
+							in 380..530 -> Pair(resultImages[1], 5)
+							in 360..560 -> Pair(resultImages[2], 1)
+							else -> throw RuntimeException()
 						}
-						in 380..530 -> {
-							obj.res = resultImages[1]
-							scoreC += 5
-						}
-						in 360..560 -> {
-							obj.res = resultImages[2]
-							scoreC++
-						}
-						else -> hit = false
-					}
-					if (hit) {
+						obj.res = r
+						scoreC += c
+					} catch (e: RuntimeException) {
 						println("${obj.y}")
 						comboC++
 					}

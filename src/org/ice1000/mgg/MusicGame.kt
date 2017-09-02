@@ -16,22 +16,19 @@ class MusicGame : Game(3) {
 		autoGC = true
 		addObject(0, ImageObject(ImageResource.fromPath("res/img/BG.jpg")))
 		addTimeListener(FTimeListener(3000, 1) { play("res/song.mp3") })
-		super.onInit()
 	}
 
-	val seconds = FTimer(1000)
-	var count = 2
+	private val seconds = FTimer(1000)
+	private var count = 2
 	override fun onLastInit() {
 		when (FDialog(this).confirm("Are you player?", "Confirm", FDialog.YES_NO_OPTION)) {
 			FDialog.NO_OPTION -> master()
 			FDialog.YES_OPTION -> player()
 			else -> System.exit(0)
 		}
-		super.onLastInit()
 	}
 
 	override fun onRefresh() {
-		super.onRefresh()
 		if (seconds.ended() && count >= 0) println("${count--}")
 	}
 }
