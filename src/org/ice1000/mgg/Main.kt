@@ -4,7 +4,7 @@ import org.frice.launch
 import org.frice.resource.image.FileImageResource
 import java.awt.event.KeyEvent
 
-fun main(args: Array<String>) = launch(MusicGame::class.java)
+fun main(vararg args: String) = launch(MusicGame::class.java)
 val STRIKES = "ASDFJKL;"
 val IMAGES = mapOf(*STRIKES.map { it to FileImageResource("res/img/VK_$it.png") }.toTypedArray())
 fun pos(any: Any) = STRIKES.indexOf("$any"[0])
