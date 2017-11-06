@@ -1,17 +1,17 @@
 package org.ice1000.mgg
 
-import org.frice.game.Game
-import org.frice.game.anim.move.SimpleMove
-import org.frice.game.obj.button.SimpleText
-import org.frice.game.obj.sub.ImageObject
-import org.frice.game.obj.sub.ShapeObject
-import org.frice.game.resource.graphics.ColorResource
-import org.frice.game.resource.image.ImageResource
-import org.frice.game.utils.audio.play
-import org.frice.game.utils.data.Preference
-import org.frice.game.utils.graphics.shape.FRectangle
-import org.frice.game.utils.message.FDialog
-import org.frice.game.utils.time.*
+import org.frice.Game
+import org.frice.anim.move.SimpleMove
+import org.frice.obj.button.SimpleText
+import org.frice.obj.sub.ImageObject
+import org.frice.obj.sub.ShapeObject
+import org.frice.resource.graphics.ColorResource
+import org.frice.resource.image.ImageResource
+import org.frice.utils.audio.play
+import org.frice.utils.data.Preference
+import org.frice.utils.message.FDialog
+import org.frice.utils.shape.FRectangle
+import org.frice.utils.time.*
 
 class MusicGame : Game(3) {
 	override fun onExit() = System.exit(0)
@@ -28,7 +28,7 @@ class MusicGame : Game(3) {
 	override fun onLastInit() {
 		when (FDialog(this).confirm("Are you player?", "Confirm", FDialog.YES_NO_OPTION)) {
 			FDialog.NO_OPTION -> Preference("data.db").let { db ->
-				addKeyListener(pressed = { if (it.keyCode in KEYS) db.insert("${Clock.current - 3000}", "${KEYS[it.keyCode]}") })
+				addKeyListener(pressed = { if (it.keyCode in KEYS) db.insert("${FClock.current - 3000}", "${KEYS[it.keyCode]}") })
 			}
 			FDialog.YES_OPTION -> Preference("data.db").list().let {
 				val res = ColorResource.BLUE

@@ -1,7 +1,7 @@
 package org.ice1000.mgg
 
-import org.frice.game.Game.Initializer.launch
-import org.frice.game.resource.image.FileImageResource
+import org.frice.launch
+import org.frice.resource.image.FileImageResource
 import java.awt.event.KeyEvent
 
 fun main(args: Array<String>) = launch(MusicGame::class.java)

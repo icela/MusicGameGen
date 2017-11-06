@@ -49,7 +49,7 @@ allprojects {
 
 dependencies {
 	artifact "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-	artifact "com.github.icela:FriceEngine:v1.4.0"
+	artifact "com.github.icela:FriceEngine:v1.5.0-alpha5"
 
 	configurations.compile.extendsFrom(configurations.artifact)
 
