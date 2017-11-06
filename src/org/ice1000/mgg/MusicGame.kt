@@ -34,8 +34,7 @@ class MusicGame : Game(3) {
 				val res = ColorResource.BLUE
 				val resultImages = listOf("Perfect", "Good", "Bad", "Miss").map { ImageResource.fromPath("res/img/$it.png") }
 				val wall = ShapeObject(ColorResource.COLORLESS, FRectangle(700, 10), -10.0, 590.0)
-				var scoreC = 0
-				var comboC = 0
+				var (scoreC, comboC) = 0 to 0
 				val show = SimpleText(ColorResource.BLACK, "score", 20.0, 20.0)
 				val updateShow = { show.text = "score: $scoreC, combo: $comboC" }
 				addObject(1, ShapeObject(res, FRectangle(700, 10), -10.0, 480.0),
