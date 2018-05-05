@@ -27,11 +27,11 @@ jar {
 
 configurations { artifact }
 
-repositories { maven { url 'https://jitpack.io' } }
+repositories { maven { url 'https://dl.bintray.com/ice1000/FriceEngine' } }
 
 dependencies {
 	artifact "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-	artifact "com.github.icela:FriceEngine:v1.8.3"
+	artifact "org.frice:engine:1.8.3"
 
 	configurations.compile.extendsFrom(configurations.artifact)
 
