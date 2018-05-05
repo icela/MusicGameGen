@@ -3,46 +3,31 @@ version 'v0.0.3'
 
 buildscript {
 	ext.kotlin_version = '1.2.41'
-
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-	}
+	repositories { mavenCentral() }
+	dependencies { classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" }
 }
 
 apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'application'
 
-repositories {
-	mavenCentral()
-}
+repositories { mavenCentral() }
+mainClassName = 'org.ice1000.mgg.MainKt'
 
 sourceSets {
-	main.kotlin.srcDirs = [ 'src' ]
-	test.kotlin.srcDirs = [ 'test' ]
-	main.resources.srcDirs = [ 'res' ]
+	main.kotlin.srcDirs = ['src']
+	test.kotlin.srcDirs = ['test']
+	main.resources.srcDirs = ['res']
 }
 
 jar {
-	manifest {
-		attributes 'Main-Class': 'org.ice1000.mgg.MainKt'
-	}
-	from {
-		configurations
-				.artifact
-				.collect { it.isDirectory() ? it : zipTree(it) }
-	}
+	manifest { attributes 'Main-Class': mainClassName }
+	from { configurations.artifact.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
-configurations {
-	artifact
-}
+configurations { artifact }
 
-repositories {
-	maven { url 'https://jitpack.io' }
-}
+repositories { maven { url 'https://jitpack.io' } }
 
 dependencies {
 	artifact "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
