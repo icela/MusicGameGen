@@ -1,8 +1,8 @@
 group 'org.ice1000'
-version 'v0.0.2'
+version 'v0.0.3'
 
 buildscript {
-	ext.kotlin_version = '1.1.4-2'
+	ext.kotlin_version = '1.2.41'
 
 	repositories {
 		mavenCentral()
@@ -10,7 +10,6 @@ buildscript {
 	dependencies {
 		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 	}
-
 }
 
 apply plugin: 'java'
@@ -21,9 +20,9 @@ repositories {
 }
 
 sourceSets {
-	main.kotlin.srcDirs += 'src'
-	test.kotlin.srcDirs += 'test'
-	main.resources.srcDirs += 'res'
+	main.kotlin.srcDirs = [ 'src' ]
+	test.kotlin.srcDirs = [ 'test' ]
+	main.resources.srcDirs = [ 'res' ]
 }
 
 jar {
@@ -41,15 +40,13 @@ configurations {
 	artifact
 }
 
-allprojects {
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
+repositories {
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-	artifact "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-	artifact "com.github.icela:FriceEngine:v1.5.0-alpha5"
+	artifact "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+	artifact "com.github.icela:FriceEngine:v1.8.3"
 
 	configurations.compile.extendsFrom(configurations.artifact)
 
