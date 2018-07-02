@@ -27,7 +27,7 @@ jar {
 
 configurations { artifact }
 
-repositories { maven { url 'https://dl.bintray.com/ice1000/FriceEngine' } }
+repositories { jcenter() }
 
 dependencies {
 	artifact "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
